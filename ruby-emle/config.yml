@@ -1,0 +1,11 @@
+# Config for collector app
+
+database:
+  name: ruby-emle
+  nodes:
+    - 127.0.0.1:27017
+
+
+application:
+  host: '::1'
+  port: 28000

@@ -1,0 +1,12 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    eventmachine-le (1.1.5)
+    moped (1.5.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  eventmachine-le
+  moped
