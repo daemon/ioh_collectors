@@ -13,15 +13,13 @@ App.config.load File.join(App.root, 'config.yml')
 App.logger = Logger.new(STDOUT)
 # App.logger = Logger.new(File.expand_path File.join(App.root, 'log/collector.log'))
 
-
-Signal.trap("INT")  { EventMachine.stop }
-Signal.trap("TERM") { EventMachine.stop }
-
 Db.connect App.config.database['nodes'], App.config.database['name']
 
 supervisor = CollectorServer.supervise App.config.application['host'],
   App.config.application['port'],
   Db.connection
 
-trap("INT") { supervisor.terminate; exit }
+Signal.trap("INT")  { supervisor.terminate; exit }
+Signal.trap("TERM") { supervisor.terminate; exit }
+
 sleep

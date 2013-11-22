@@ -1,6 +1,5 @@
 require 'celluloid/io'
 
-
 # Hack to allow IPv6
 class Celluloid::IO::UDPSocket
   def initialize(address_family = nil)
