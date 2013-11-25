@@ -35,7 +35,7 @@ class CollectorServer
       return if data.length == 0
 
       name, value, hmac = data.split(':', 3)
-      value = value.include?('.') ? value.to_f : value.to_i
+      value = value.to_f
 
       db[:metrics].insert(name: name, value: value, hmac: hmac, created_at: Time.now.utc)
     rescue StandardError => e
