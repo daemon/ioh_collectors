@@ -6,13 +6,14 @@ import (
 	"labix.org/v2/mgo"
 	// "labix.org/v2/mgo/bson"
 	"net"
+	"strconv"
 	"strings"
 	"time"
 )
 
 type Probe struct {
 	Name      string
-	Value     string
+	Value     float64
 	HMAC      string
 	CreatedAt time.Time `bson:"created_at"`
 }
@@ -72,14 +73,22 @@ func storeData(data string) {
 	// probe["created_at"] = time.Now()
 	// db.Insert(probe)
 
+	var value float64
+	var err error
+
+	value, err = strconv.ParseFloat(fields[1], 64)
+	if err != nil {
+		return
+	}
+
 	reading := Probe{
 		Name:      fields[0],
-		Value:     fields[1],
+		Value:     value,
 		HMAC:      fields[2],
 		CreatedAt: time.Now(),
 	}
 
-	err := db.Insert(reading)
+	err = db.Insert(reading)
 	if err != nil {
 		panic(err)
 	}
